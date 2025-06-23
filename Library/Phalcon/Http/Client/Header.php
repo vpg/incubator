@@ -33,6 +33,7 @@ class Header implements \Countable
     public $statusCode = 0;
     public $statusMessage = '';
     public $status = '';
+    public $headerContent = [];
 
     const BUILD_STATUS = 1;
     const BUILD_FIELDS = 2;
@@ -150,6 +151,7 @@ class Header implements \Countable
 
         $status = [];
         if (preg_match('%^HTTP/(\d(?:\.\d)?)\s+(\d{3})\s?+(.+)?$%i', $content[0], $status)) {
+            $this->headerContent = $content;
             $this->status = array_shift($content);
             $this->version = $status[1];
             $this->statusCode = intval($status[2]);
